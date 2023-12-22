@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.qr-container {
+    margin: 50px;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    border-color: #ffffff; 
+    background-color: #64ade9; 
+    color: #ffffff; 
+    transition: background-color 0.3s ease; 
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #1e90ec;
+}
