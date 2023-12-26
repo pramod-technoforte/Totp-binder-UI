@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import '../styles/home.css';
-// import { SignInWithEsignet } from 'sign-in-with-esignet';
+import SignInWithEsignetButton from '../login-plugin';
 import clientDetails from '../clientDetails';
 
 function Home() {
     
     useEffect(() => {
 
+        // Define Configurations
         const oidcConfig = {
             authorizeUri: clientDetails.uibaseUrl + clientDetails.authorizeEndpoint,
             redirect_uri: clientDetails.redirect_uri,
@@ -14,15 +15,23 @@ function Home() {
             scope: clientDetails.scope
         };
 
-        window.SignInWithEsignetButton?.init({
-            oidcConfig: oidcConfig,
-            buttonConfig: {
-                shape: "soft_edges",
-                labelText: ("sign_in_with"),
-                width: "100%"
-            },
-            signInElement: document.getElementById("sign-in-with-esignet"),
+        // Define your button configuration
+        const buttonConfig = {
+            shape: "soft_edges",
+            labelText: ("sign_in_with"),
+            width: "100%"
+        };  
+
+        // Get the container element where you want to render the button
+        const signInContainer = document.getElementById('sign-in-with-esignet');
+
+        // Initialize the SignInWithEsignetButton component
+        SignInWithEsignetButton.init({
+            oidcConfig,
+            buttonConfig,
+            signInElement: signInContainer,
         });
+
     }, []);
 
     return (
