@@ -12,13 +12,22 @@ function Home() {
             authorizeUri: clientDetails.uibaseUrl + clientDetails.authorizeEndpoint,
             redirect_uri: clientDetails.redirect_uri,
             client_id: clientDetails.clientId,
-            scope: clientDetails.scope
+            scope: clientDetails.scope,
+            nonce: clientDetails.nonce,
+            state: clientDetails.state,
+            response_type: clientDetails.response_type,
+            acr_values: clientDetails.acr_values,
+            display: clientDetails.display,
+            prompt: clientDetails.prompt,
+            max_age: clientDetails.max_age,
+            claims_locales: clientDetails.claims_locales,
+            claims: JSON.parse(decodeURI(clientDetails.userProfileClaims)),
         };
 
         // Define your button configuration
         const buttonConfig = {
             shape: "soft_edges",
-            labelText: ("sign_in_with"),
+            labelText: ("sign in with esignet"),
             width: "100%"
         };  
 
@@ -31,6 +40,8 @@ function Home() {
             buttonConfig,
             signInElement: signInContainer,
         });
+
+        console.log(oidcConfig);
 
     }, []);
 

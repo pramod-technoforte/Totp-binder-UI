@@ -6,12 +6,12 @@ import QRCodePage from './pages/QRcode';
 
 function App() {
   return (
-      <BrowserRouter>
-        <Routes>
-          <Route path={process.env.PUBLIC_URL + "/"} element={<Home />} />
-          <Route path={process.env.PUBLIC_URL + "/qrcode"} element={<QRCodePage />} />
-        </Routes>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route path={process.env.PUBLIC_URL + "/"} element={<Home />} />
+        <Route path={process.env.PUBLIC_URL + "/qrcode"} element={<QRCodePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
