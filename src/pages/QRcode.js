@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import QRCode from 'react-qr-code';
 import { encode } from 'hi-base32';
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import '../styles/generateQR.css';
 
 const QRCodePage = () => {
@@ -15,11 +15,21 @@ const QRCodePage = () => {
     const [searchParams] = useSearchParams();
     const authCode = searchParams.get("code");
 
-    useEffect(() => {
-        if (authCode) {
-            setLoading(true);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        const storedToken = localStorage.getItem('accessToken');
+
+        if (storedToken) {
+            setAccessToken(storedToken);
+        }
+        else if (authCode) {
+            setLoading(true);
             post_fetchAccessToken(authCode)
+            .then(token => {
+                setAccessToken(token);
+                localStorage.setItem('accessToken', token);
+            })
             .catch((error) => {
                 console.error("Error fetching user details:", error);
                 setError("Error fetching access token.");
@@ -51,10 +61,10 @@ const QRCodePage = () => {
             const data = await response.json();
             const token = data.accessToken;
         
-            setAccessToken(token);
+            console.log("Access Token: " + token);
             return token;
         } catch (error) {
-            console.error('Error fetching access token:', error);
+            console.error("Error fetching access token:", error);
             throw error;
         }
     };
@@ -64,6 +74,7 @@ const QRCodePage = () => {
         const base32EncodedKey = encode(secretKey);
         const otpAuthUrl = `otpauth://totp/YourAppName?secret=${base32EncodedKey}&issuer=TOTPBindingService`;
 
+        console.log("Secret Key: " + base32EncodedKey);
         setOtpAuthUrl(otpAuthUrl);
         setQRCodeVisible(true);
         setTokenBindConfirmed(false);
@@ -86,6 +97,11 @@ const QRCodePage = () => {
         return secretKey;
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('accessToken');
+        navigate('/');
+    };
+
 
     return (
         <div className="container">
@@ -97,17 +113,21 @@ const QRCodePage = () => {
             
             {!loading && !error && (
                 <>
-                    <button onClick={generateSymmetricKey} className="button">Generate Symmetric Key</button>
+                    {!tokenBindConfirmed && (
+                        <button onClick={generateSymmetricKey} className="button">Generate Symmetric Key</button>
+                    )}
                     
                     {qrCodeVisible && (
                         <div className="container">
                             <QRCode value={otpAuthUrl} className="qr-container" />
                             <br></br>
                             {!tokenBindConfirmed && (
-                                <button onClick={confirmTokenBind} className="button">Confirm Token Bind</button>
+                                <button onClick={confirmTokenBind} className="button" >Confirm Token Bind</button>
                             )}
                         </div>
                     )}
+
+                    <button onClick={handleLogout} className="logout-button">Logout</button>
                 </>
             )}
         </div>

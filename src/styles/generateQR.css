@@ -22,12 +22,33 @@
     text-decoration: none;
     border-radius: 10px;
     border-color: #ffffff; 
-    background-color: #64ade9; 
+    background-color: #49a6f1; 
     color: #ffffff; 
     transition: background-color 0.3s ease; 
     cursor: pointer;
 }
 
 .button:hover {
-    background-color: #1e90ec;
+    background-color: #0288f5;
+}
+
+.logout-button {
+    position: fixed;
+    top: 100px;
+    right: 30px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    border-color: #ffffff; 
+    background-color: #ff0000;
+    color: #ffffff; 
+    transition: background-color 0.3s ease; 
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
 }
