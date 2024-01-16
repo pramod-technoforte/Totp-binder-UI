@@ -7,6 +7,7 @@ import '../styles/generateQR.css';
 const QRCodePage = () => {
     const [accessToken, setAccessToken] = useState(null);
     const [otpAuthUrl, setOtpAuthUrl] = useState('');
+    const [base32EncodedKey, setBase32EncodedKey] = useState('');
     const [qrCodeVisible, setQRCodeVisible] = useState(false);
     const [tokenBindConfirmed, setTokenBindConfirmed] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -22,12 +23,16 @@ const QRCodePage = () => {
 
         if (storedToken) {
             setAccessToken(storedToken);
+            console.log("Access Token (Local Storage) : " + storedToken);
+            console.log("Time : " + new Date().toLocaleTimeString());
         }
-        else if (authCode) {
+        else {
             setLoading(true);
             post_fetchAccessToken(authCode)
             .then(token => {
                 setAccessToken(token);
+                console.log("Access Token (API) : " + token);
+                console.log("Time : " + new Date().toLocaleTimeString());
                 localStorage.setItem('accessToken', token);
             })
             .catch((error) => {
@@ -61,7 +66,6 @@ const QRCodePage = () => {
             const data = await response.json();
             const token = data.accessToken;
         
-            console.log("Access Token: " + token);
             return token;
         } catch (error) {
             console.error("Error fetching access token:", error);
@@ -69,20 +73,42 @@ const QRCodePage = () => {
         }
     };
 
-    const generateSymmetricKey = (userInfo) => {
+    const post_confirmTokenBind = async () => {
+        const apiUrl = 'http://localhost:8080/binding/totp-key-bind';
+
+        try {    
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    key: base32EncodedKey,
+                    accessToken: accessToken,
+                }),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            
+        } catch (error) {
+            console.error("Error confirming token bind:", error);
+        }
+    };
+
+    const generateSymmetricKey = () => {
         const secretKey = generateRandomSecretKey();
         const base32EncodedKey = encode(secretKey);
         const otpAuthUrl = `otpauth://totp/YourAppName?secret=${base32EncodedKey}&issuer=TOTPBindingService`;
 
-        console.log("Secret Key: " + base32EncodedKey);
+        console.log("Secret Key: " + base32EncodedKey + " " + secretKey);
+        setBase32EncodedKey(base32EncodedKey);
         setOtpAuthUrl(otpAuthUrl);
         setQRCodeVisible(true);
         setTokenBindConfirmed(false);
-    };
-
-    const confirmTokenBind = () => {
-        setTokenBindConfirmed(true);
-        // Call the /bind api
     };
 
     const generateRandomSecretKey = () => {
@@ -95,6 +121,11 @@ const QRCodePage = () => {
         }
 
         return secretKey;
+    };
+
+    const confirmTokenBind = async () => {
+        post_confirmTokenBind();
+        setTokenBindConfirmed(true);
     };
 
     const handleLogout = () => {

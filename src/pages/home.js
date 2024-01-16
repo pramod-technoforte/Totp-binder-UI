@@ -7,6 +7,8 @@ function Home() {
     
     useEffect(() => {
 
+        localStorage.removeItem('accessToken');
+
         // Define Configurations
         const oidcConfig = {
             authorizeUri: clientDetails.uibaseUrl + clientDetails.authorizeEndpoint,
