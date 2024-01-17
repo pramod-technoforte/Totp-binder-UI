@@ -12,6 +12,7 @@ const QRCodePage = () => {
     const [tokenBindConfirmed, setTokenBindConfirmed] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState('');
 
     const [searchParams] = useSearchParams();
     const authCode = searchParams.get("code");
@@ -96,6 +97,13 @@ const QRCodePage = () => {
 
             const data = await response.json();
             
+            if (data.status == "success") {
+                setSuccessMessage("Binding Successful");
+            }
+            else {
+                setSuccessMessage("Binding Failed");
+            }
+
         } catch (error) {
             console.error("Error confirming token bind:", error);
         }
@@ -163,6 +171,8 @@ const QRCodePage = () => {
                     <button onClick={handleLogout} className="logout-button">Logout</button>
                 </>
             )}
+
+            {successMessage && <p className="message">{successMessage}</p>}
         </div>
     );
 };
