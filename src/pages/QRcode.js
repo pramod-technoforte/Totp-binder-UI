@@ -81,10 +81,12 @@ const QRCodePage = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
                 },
                 body: JSON.stringify({
-                    key: base32EncodedKey,
-                    accessToken: accessToken,
+                    totpKey: {
+                        key: base32EncodedKey
+                    }
                 }),
             });
     

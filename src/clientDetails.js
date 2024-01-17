@@ -1,12 +1,12 @@
 const state = "eree2311";
 const nonce = "ere973eieljznge2311";
 const responseType = "code";
-const uibaseUrl = "https://esignet.onpremdev.idencode.link";
+const uibaseUrl = "http://localhost:3001";
 const authorizeEndpoint = "/authorize";
 const redirect_uri = "http://localhost:3000/qrcode";
 const clientId = "8ev-FWq7jvTk5SiZuEntodtN1WPa_SZxNNgK3OdqcG0";
 const scope = "openid profile";
-const acr_values = "mosip:idp:acr:generated-code%20mosip:idp:acr:biometrics%20mosip:idp:acr:static-code";
+const acr_values = "mosip:idp:acr:generated-code%20mosip:idp:acr:time-generated-code%20mosip:idp:acr:biometrics%20mosip:idp:acr:static-code";
 const display = "page";
 const prompt = "consent";
 const maxAge = 21;
