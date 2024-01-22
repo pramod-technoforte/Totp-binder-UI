@@ -6,10 +6,7 @@ on:
       - develop
 
 jobs:
-  call-workflow-codeql-analysis:
-    uses: ./.github/workflows/codeql-analysis.yml
   build:
-    needs: call-workflow-codeql-analysis
     runs-on: ubuntu-latest
     env:
       SERVICE_NAME: totp-binder-ui
