@@ -15,5 +15,5 @@ roleRef:
   name: {{ template "common.names.fullname" . }}
 subjects:
   - kind: ServiceAccount
-    name: {{ template "Totp-binder-UI.serviceAccountName" . }}
+    name: {{ template "totp-binder-ui.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}

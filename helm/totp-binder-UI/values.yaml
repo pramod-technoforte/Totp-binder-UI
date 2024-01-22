@@ -51,7 +51,7 @@ service:
 
 image:
   registry: docker.io
-  repository: mosipid/Totp-binder-UI
+  repository: mosipid/totp-binder-ui
   tag: 1.2.0
 
   ## Specify a imagePullPolicy
@@ -249,7 +249,7 @@ extraEnvVarsCM:
   - config-server-share
   - artifactory-share
   - softhsm-esignet-share
-  - Totp-binder-UI
+  - totp-binder-ui
 
 ## Secret with extra environment variables
 ##
@@ -421,7 +421,7 @@ oidc_ui:
   oidc_ui_port: '3000'
   oidc_service_host: 'esignet.esignet'
   configmaps:
-    Totp-binder-UI:
+    totp-binder-ui:
       REACT_APP_API_BASE_URL: 'http://esignet.esignet/v1/esignet'
       REACT_APP_SBI_DOMAIN_URI: 'http://esignet.$NS'
       OIDC_UI_PUBLIC_URL: ''
@@ -434,7 +434,7 @@ istio:
   ingressController:
     name: ingressgateway
   gateways:
-    - name: Totp-binder-UI-gateway
+    - name: totp-binder-ui-gateway
       protocol: HTTP
       portName: http
       port: 80

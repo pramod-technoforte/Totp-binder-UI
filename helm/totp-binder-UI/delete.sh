@@ -1,18 +1,23 @@
 #!/bin/bash
-# Restart the Totp-binder-UI services
-
+# Uninstalls totp-binder-ui helm charts
+## Usage: ./delete.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-function Restarting_Totp-binder-UI() {
+function Deleting_totp-binder-ui() {
   NS=esignet
-  kubectl -n $NS rollout restart deploy Totp-binder-UI
-
-  kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
-
-  echo Retarted esignet services
+  while true; do
+      read -p "Are you sure you want to delete all esignet helm charts?(Y/n) " yn
+      if [ $yn = "Y" ]
+        then
+          helm -n $NS delete totp-binder-ui
+          break
+        else
+          break
+      fi
+  done
   return 0
 }
 
@@ -22,4 +27,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-Restarting_Totp-binder-UI   # calling function
+Deleting_totp-binder-ui   # calling function
