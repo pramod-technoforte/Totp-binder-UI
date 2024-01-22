@@ -42,15 +42,15 @@ WORKDIR /home/${container_user}
 
 # install packages and create user
 RUN apt-get -y update \
-    && apt-get install -y curl npm python wget unzip zip \
+    && apt-get install -y unzip wget zip npm \
     && groupadd -g ${container_user_gid} ${container_user_group} \
     && useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user} \
     && mkdir -p /var/run/nginx /var/tmp/nginx ${base_path}/locales \
     && chown -R ${container_user}:${container_user} /usr/share/nginx /var/run/nginx /var/tmp/nginx ${base_path}/locales
 
-ADD configure_start.sh configure_start.sh
+#ADD configure_start.sh configure_start.sh
 
-RUN chmod +x configure_start.sh
+#RUN chmod +x configure_start.sh
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
