@@ -12,16 +12,6 @@ jobs:
       SERVICE_NAME: totp-binder-ui
       SERVICE_LOCATION: ''
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          ref: ${{ github.ref }}
-          java-version: 11
-          server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
-          settings-path: ${{ github.workspace }} # location for the settings.xml file
-
-
       - name: Setup branch and env
         run: |
           # Strip git ref prefix from version
@@ -36,11 +26,6 @@ jobs:
           sudo apt-get --yes install gnupg2
           gpg2 --import ./.github/keys/mosipgpgkey_pub.gpg 
           gpg2 --quiet --batch --passphrase=${{secrets.gpg_secret}}  --allow-secret-key-import --import ./.github/keys/mosipgpgkey_sec.gpg 
-
-      - name: Install xmllint
-        run: |
-          sudo apt-get update
-          sudo apt-get install libxml2-utils
 
   build-dockers-totp-binder-ui:
     strategy:
