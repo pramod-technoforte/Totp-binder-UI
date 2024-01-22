@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=esignet
+NS=totp
 CHART_VERSION=1.2.0
 
 echo Create $NS namespace
@@ -16,18 +16,16 @@ function installing_totp-binder-ui() {
   echo Istio label
   kubectl label ns $NS istio-injection=enabled --overwrite
 
-  helm repo add mosip https://mosip.github.io/mosip-helm
+#  helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
 
   echo Copy configmaps
   ./copy_cm.sh
 
-  ESIGNET_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
+  TOTP_BINDER_SERVICE_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
 
   echo Installing OIDC UI
-  helm -n $NS install totp-binder-ui mosip/totp-binder-ui \
-  --set oidc_ui.configmaps.totp-binder-ui.REACT_APP_API_BASE_URL="http://esignet.$NS/v1/esignet" \
-  --set oidc_ui.configmaps.totp-binder-ui.REACT_APP_SBI_DOMAIN_URI="http://esignet.$NS" \
+  helm -n $NS install totp-binder-ui tf-govstack/totp-binder-ui \
   --set oidc_ui.configmaps.totp-binder-ui.OIDC_UI_PUBLIC_URL=''\
   --set istio.hosts\[0\]=$ESIGNET_HOST \
   --version $CHART_VERSION

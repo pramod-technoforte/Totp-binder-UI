@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 function Deleting_totp-binder-ui() {
-  NS=esignet
+  NS=totp
   while true; do
       read -p "Are you sure you want to delete all esignet helm charts?(Y/n) " yn
       if [ $yn = "Y" ]
