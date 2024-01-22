@@ -37,7 +37,7 @@ jobs:
           gpg2 --import ./.github/keys/mosipgpgkey_pub.gpg 
           gpg2 --quiet --batch --passphrase=${{secrets.gpg_secret}}  --allow-secret-key-import --import ./.github/keys/mosipgpgkey_sec.gpg 
           
-build-totp-binder-ui:
+  build-totp-binder-ui:
     runs-on: ubuntu-latest
     env:
       NAMESPACE: ${{ secrets.dev_namespace_docker_hub }}
