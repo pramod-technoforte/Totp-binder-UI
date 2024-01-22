@@ -38,8 +38,8 @@ service:
   ## loadBalancerIP:
   ##
   ## nodePorts:
-  ##   http: <to set explicitly, choose port between 30000-32767>
-  ##   https: <to set explicitly, choose port between 30000-32767>
+  ##   http: <to set explicitly, choose port between 90980-32767>
+  ##   https: <to set explicitly, choose port between 90980-32767>
   ##
   nodePorts:
     http: ""
@@ -74,7 +74,7 @@ startupProbe:
   enabled: true
   httpGet:
     path: /
-    port: 3000
+    port: 9098
   initialDelaySeconds: 0
   periodSeconds: 10
   timeoutSeconds: 5
@@ -85,7 +85,7 @@ livenessProbe:
   enabled: true
   httpGet:
     path: /
-    port: 3000
+    port: 9098
   initialDelaySeconds: 20
   periodSeconds: 10
   timeoutSeconds: 5
@@ -96,7 +96,7 @@ readinessProbe:
   enabled: true
   httpGet:
     path: /
-    port: 3000
+    port: 9098
   initialDelaySeconds: 0
   periodSeconds: 10
   timeoutSeconds: 5
@@ -418,7 +418,7 @@ metrics:
 ## CAUTION: Domain name to access oidc UI must be secure/internal/over vpn.
 ## Slash is important!
 oidc_ui:
-  oidc_ui_port: '3000'
+  oidc_ui_port: '9098'
   oidc_service_host: 'esignet.esignet'
   configmaps:
     totp-binder-ui:

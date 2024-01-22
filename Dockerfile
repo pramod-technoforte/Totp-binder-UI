@@ -62,7 +62,7 @@ RUN chown -R ${container_user}:${container_user} /home/${container_user}
 # select container user for all tasks
 USER ${container_user_uid}:${container_user_gid}
 
-EXPOSE 3000
+EXPOSE 9098
 
 ENTRYPOINT [ "./configure_start.sh" ]
 
