@@ -22,6 +22,9 @@ const Bind = () => {
 
     const disabled = false;
 
+    const TOTP_DIGITS = process.env.REACT_APP_TOTP_DIGITS ?? "6";
+    const TOTP_PERIOD = process.env.REACT_APP_TOTP_PERIOD ?? "30";
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -54,9 +57,10 @@ const Bind = () => {
     const generateSymmetricKey = () => {
         const secretKey = generateRandomSecretKey();
         const base32EncodedKey = encode(secretKey);
-        const otpAuthUrl = `otpauth://totp/YourAppName?secret=${base32EncodedKey}&issuer=TOTPBindingService`;
+        const otpAuthUrl = `otpauth://totp/TOTPBinderService?secret=${base32EncodedKey}&issuer=TOTPBinderService&digits=${TOTP_DIGITS}&period=${TOTP_PERIOD}`;
 
         console.log("Secret Key: " + base32EncodedKey);
+        console.log("QR URI: " + otpAuthUrl);
         setBase32EncodedKey(base32EncodedKey);
         setOtpAuthUrl(otpAuthUrl);
         setQRCodeVisible(true);
@@ -115,8 +119,9 @@ const Bind = () => {
                 
                 {!loading && !error && (
                     <div className="container">
-                    <form className="mt-2 space-y-2">
+                    <form className="space-y-2">
                         <FormAction
+                            id="General"
                             disabled={tokenBindConfirmed}
                             type={Constants.BUTTON}
                             text={Constants.GENERATE_KEY_BTN}
@@ -125,12 +130,13 @@ const Bind = () => {
                         
                         {qrCodeVisible && (
                             <div>
-                                <div className="border border-4 border-sky-600 rounded-3xl p-4 mb-3">
+                                <div className="border border-4 border-sky-600 rounded-3xl p-4">
                                 <QRCode value={otpAuthUrl}/>
                                 </div>
                                 <br></br>
-                                    <div className="mb-3">
+                                    <div className="">
                                         <FormAction
+                                            id="General"
                                             disabled={tokenBindConfirmed}
                                             type={Constants.BUTTON}
                                             text={Constants.CONFIRM_BIND_BTN}
@@ -140,12 +146,13 @@ const Bind = () => {
                             </div>
                         )}
 
-                        <div className="mt-5">
+                        <div>
                             <FormAction
-                                    disabled={disabled}
-                                    type={Constants.BUTTON}
-                                    text={Constants.LOGOUT_BTN}
-                                    handleClick={handleLogout}
+                                id="Logout"
+                                disabled={disabled}
+                                type={Constants.BUTTON}
+                                text={Constants.LOGOUT_BTN}
+                                handleClick={handleLogout}
                             />
                         </div>
                     </form>
@@ -153,7 +160,11 @@ const Bind = () => {
                 )}
                 
 
-                {successMessage && <p>{successMessage}</p>}
+                {successMessage && (
+                    <div className={`mt-5 ${successMessage.includes(Constants.BIND_SUCCESS_MSG) ? 'bg-green-200 text-green-800 border border-green-400 p-2 rounded' : 'bg-red-200 text-red-800 border border-red-400 p-2 rounded'}`}>
+                    {successMessage}
+                    </div>
+                )}
         </div>
     );
 };

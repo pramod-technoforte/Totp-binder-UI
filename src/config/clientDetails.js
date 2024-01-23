@@ -1,12 +1,15 @@
 const state = "eree2311";
 const nonce = "ere973eieljznge2311";
 const responseType = "code";
-const uibaseUrl = "https://esignet.onpremdev.idencode.link";
+const uibaseUrl = process.env.REACT_APP_ESIGNET_UI_BASE_URL ?? "https://esignet.onpremdev.idencode.link";
 const authorizeEndpoint = "/authorize";
-const redirect_uri = "http://localhost:3000/qrcode";
-const clientId = "8ev-FWq7jvTk5SiZuEntodtN1WPa_SZxNNgK3OdqcG0";
+const redirect_uri = process.env.REACT_APP_REDIRECT_URI ?? "http://localhost:3000/qrcode";
+const totpBinderServiceUrl = process.env.REACT_APP_TOTP_BINDER_SERVICE_URL ?? "http://localhost:9099";
+const authTokenEndpoint = "/oauth/token";
+const confirmTokenBindEndpoint = "/binding/totp-key-bind";
+const clientId = process.env.REACT_APP_CLIENT_ID ?? "8ev-FWq7jvTk5SiZuEntodtN1WPa_SZxNNgK3OdqcG0";
 const scope = "openid profile";
-const acr_values = "mosip:idp:acr:generated-code%20mosip:idp:acr:time-generated-code%20mosip:idp:acr:biometrics%20mosip:idp:acr:static-code";
+const acr_values = process.env.REACT_APP_ACR_VALUES ?? "mosip:idp:acr:generated-code%20mosip:idp:acr:time-generated-code%20mosip:idp:acr:biometrics%20mosip:idp:acr:static-code";
 const display = "page";
 const prompt = "consent";
 const maxAge = 21;
@@ -48,6 +51,9 @@ const clientDetails = {
     uibaseUrl : uibaseUrl,
     authorizeEndpoint : authorizeEndpoint,
     redirect_uri : redirect_uri,
+    totpBinderServiceUrl: totpBinderServiceUrl,
+    authTokenEndpoint: authTokenEndpoint,
+    confirmTokenBindEndpoint: confirmTokenBindEndpoint,
     clientId : clientId,
     scope : scope,
     acr_values : acr_values,

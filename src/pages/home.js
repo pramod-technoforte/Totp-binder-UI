@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '../styles/home.css';
 import SignInWithEsignetButton from '../login-plugin';
-import clientDetails from '../constants/clientDetails';
+import clientDetails from '../config/clientDetails';
 import Constants from '../constants/constant';
 
 function Home() {
@@ -51,7 +51,7 @@ function Home() {
     return (
 
         <div className='container'>
-            <h1 className='heading'>{Constants.HOME_PAGE_TITLE}</h1>
+            <h1 className='heading text-sky-600'>{Constants.HOME_PAGE_TITLE}</h1>
 
             <div id='sign-in-with-esignet'></div>
         </div>
