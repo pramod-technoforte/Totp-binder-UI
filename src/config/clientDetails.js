@@ -3,19 +3,21 @@ const nonce = "ere973eieljznge2311";
 const responseType = "code";
 const uibaseUrl = process.env.REACT_APP_ESIGNET_UI_BASE_URL ?? "https://esignet.onpremdev.idencode.link";
 const authorizeEndpoint = "/authorize";
-const redirect_uri = process.env.REACT_APP_REDIRECT_URI ?? "http://localhost:9708/qrcode";
+const redirect_uri = process.env.REACT_APP_REDIRECT_URI ?? "http://localhost:3000/qrcode";
 const totpBinderServiceUrl = process.env.REACT_APP_TOTP_BINDER_SERVICE_URL ?? "http://localhost:9707";
 const authTokenEndpoint = "/oauth/token";
 const confirmTokenBindEndpoint = "/binding/totp-key-bind";
 const clientId = process.env.REACT_APP_CLIENT_ID ?? "8ev-FWq7jvTk5SiZuEntodtN1WPa_SZxNNgK3OdqcG0";
 const scope = "openid profile";
-const acr_values = process.env.REACT_APP_ACR_VALUES ?? "mosip:idp:acr:generated-code%20mosip:idp:acr:time-generated-code%20mosip:idp:acr:biometrics%20mosip:idp:acr:static-code";
-const display = "page";
-const prompt = "consent";
-const maxAge = 21;
-const claimsLocales = "en";
-const userProfileClaims = "%7B%22userinfo%22:%7B%22given_name%22:%7B%22essential%22:true%7D,%22phone_number%22:%7B%22essential%22:false%7D,%22email%22:%7B%22essential%22:true%7D,%22picture%22:%7B%22essential%22:false%7D,%22gender%22:%7B%22essential%22:false%7D,%22birthdate%22:%7B%22essential%22:false%7D,%22address%22:%7B%22essential%22:false%7D%7D,%22id_token%22:%7B%7D%7D";
-const registrationClaims = "%7B%22userinfo%22:%7B%22given_name%22:%7B%22essential%22:true%7D,%22phone_number%22:%7B%22essential%22:false%7D,%22email%22:%7B%22essential%22:true%7D,%22picture%22:%7B%22essential%22:false%7D,%22gender%22:%7B%22essential%22:false%7D,%22birthdate%22:%7B%22essential%22:false%7D,%22address%22:%7B%22essential%22:false%7D%7D,%22id_token%22:%7B%7D%7D";
+const acr_values = process.env.REACT_APP_ACR_VALUES ?? "mosip:idp:acr:generated-code";
+const display = process.env.REACT_APP_DISPLAY ?? "page";
+const prompt = process.env.REACT_APP_PROMPT ?? "consent";
+const maxAge = process.env.REACT_APP_MAX_AGE ?? 21;
+const claimsLocales = process.env.REACT_APP_CLAIMS_LOCALES ?? "en";
+const userProfileClaims = process.env.REACT_APP_USER_PROFILE_CLAIMS ?? "%7B%22userinfo%22:%7B%22given_name%22:%7B%22essential%22:true%7D,%22phone_number%22:%7B%22essential%22:false%7D,%22email%22:%7B%22essential%22:true%7D,%22picture%22:%7B%22essential%22:false%7D,%22gender%22:%7B%22essential%22:false%7D,%22birthdate%22:%7B%22essential%22:false%7D,%22address%22:%7B%22essential%22:false%7D%7D,%22id_token%22:%7B%7D%7D";
+const registrationClaims = process.env.REACT_APP_REGISTRATION_CLAIMS ?? "%7B%22userinfo%22:%7B%22given_name%22:%7B%22essential%22:true%7D,%22phone_number%22:%7B%22essential%22:false%7D,%22email%22:%7B%22essential%22:true%7D,%22picture%22:%7B%22essential%22:false%7D,%22gender%22:%7B%22essential%22:false%7D,%22birthdate%22:%7B%22essential%22:false%7D,%22address%22:%7B%22essential%22:false%7D%7D,%22id_token%22:%7B%7D%7D";
+const digitsInTotp = process.env.REACT_APP_TOTP_DIGITS ?? "6";
+const periodOfTotp = process.env.REACT_APP_TOTP_PERIOD ?? "30";
 
 const claims = {
     userinfo: {
@@ -62,7 +64,9 @@ const clientDetails = {
     max_age : maxAge,
     claims_locales : claimsLocales,
     userProfileClaims: userProfileClaims ?? encodeURI(JSON.stringify(claims)),
-    registrationClaims: registrationClaims ?? encodeURI(JSON.stringify(claims))
+    registrationClaims: registrationClaims ?? encodeURI(JSON.stringify(claims)),
+    digitsInTotp: digitsInTotp,
+    periodOfTotp: periodOfTotp
 }
 
 export default clientDetails;
