@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import '../styles/home.css';
 import SignInWithEsignetButton from '../login-plugin';
-import clientDetails from '../clientDetails';
+import clientDetails from '../constants/clientDetails';
+import Constants from '../constants/constant';
 
 function Home() {
     
     useEffect(() => {
 
-        localStorage.removeItem('accessToken');
+        localStorage.removeItem(Constants.ACCESS_TOKEN);
 
         // Define Configurations
         const oidcConfig = {
