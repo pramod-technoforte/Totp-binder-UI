@@ -105,7 +105,7 @@ const Bind = () => {
         <div className="container">
             <div className="container">
                 <h1 className="heading text-sky-600" title={"QR Code Generator"}>
-                    {"QR Code Generator"}
+                    {Constants.BIND_PAGE_TITLE}
                 </h1>
             </div>    
             
@@ -119,7 +119,7 @@ const Bind = () => {
                         <FormAction
                             disabled={tokenBindConfirmed}
                             type={Constants.BUTTON}
-                            text="Generate Symmetric Key"
+                            text={Constants.GENERATE_KEY_BTN}
                             handleClick={generateSymmetricKey}
                             />
                         
@@ -133,7 +133,7 @@ const Bind = () => {
                                         <FormAction
                                             disabled={tokenBindConfirmed}
                                             type={Constants.BUTTON}
-                                            text="Confirm Token Bind"
+                                            text={Constants.CONFIRM_BIND_BTN}
                                             handleClick={confirmTokenBind}
                                         />
                                     </div>
@@ -144,7 +144,7 @@ const Bind = () => {
                             <FormAction
                                     disabled={disabled}
                                     type={Constants.BUTTON}
-                                    text="Logout"
+                                    text={Constants.LOGOUT_BTN}
                                     handleClick={handleLogout}
                             />
                         </div>

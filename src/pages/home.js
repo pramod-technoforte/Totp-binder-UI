@@ -51,7 +51,7 @@ function Home() {
     return (
 
         <div className='container'>
-            <h1 className='heading'>TOTP Binder Service</h1>
+            <h1 className='heading'>{Constants.HOME_PAGE_TITLE}</h1>
 
             <div id='sign-in-with-esignet'></div>
         </div>
