@@ -1,4 +1,3 @@
-import Constants from "../constants/constant";
 
 export default function FormAction({
     handleClick,
@@ -12,7 +11,7 @@ export default function FormAction({
 ;
     return (
     <>
-        {type === Constants.BUTTON && (
+        {id === "General" && (
         <button
             type={type}
             value={type}
@@ -29,55 +28,22 @@ export default function FormAction({
             {text}
         </button>
         )}
-        {type === Constants.SUBMIT && (
+        {id === "Logout" && (
         <button
-            type={type}
-            value={type}
-            className={
-            className +
-            (disabled
-                ? "text-slate-400 bg-white"
-                : "text-white bg-gradient-to-t from-cyan-500 to-blue-500 hover:bg-gradient-to-b")
-            }
-            onSubmit={handleClick}
-            disabled={disabled}
-            id={id}
-        >
-            {text}
-        </button>
-        )}
-        {type === Constants.RESET && (
-        <button
-            type={type}
-            value={type}
-            className={
-            className +
-            (disabled
-                ? "text-slate-400 bg-white"
-                : "text-white bg-gradient-to-t from-cyan-500 to-blue-500 hover:bg-gradient-to-b")
-            }
-            onClick={handleClick}
-            disabled={disabled}
-        >
-            {text}
-        </button>
-        )}
-        {type === Constants.CANCEL && (
-        <button
-            type={type}
-            value={type}
-            className={
-            className +
-            (disabled
-                ? "text-slate-400 bg-white"
-                : "text-gray-900 bg-white hover:bg-gray-100")
-            }
-            onClick={handleClick}
-            disabled={disabled}
-            id={id}
-        >
-            {text}
-        </button>
+        type={type}
+        value={type}
+        className={
+        className +
+        (disabled
+            ? "text-slate-400 bg-white"
+            : "text-white bg-gradient-to-t from-red-400 to-red-600 hover:bg-gradient-to-b")
+        }
+        onClick={handleClick}
+        disabled={disabled}
+        id={id}
+    >
+        {text}
+    </button>
         )}
     </>
     );

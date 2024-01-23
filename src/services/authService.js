@@ -1,10 +1,8 @@
-import Constants from "../constants/constant";
-
-const apiUrl = Constants.API_URL;
+import clientDetails from "../config/clientDetails";
 
 const post_fetchAccessToken = async (authCode) => {
     try {
-        const response = await fetch(`${apiUrl}${Constants.AUTH_TOKEN_PATH}`, {
+        const response = await fetch(`${clientDetails.totpBinderServiceUrl}${clientDetails.authTokenEndpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,7 +29,7 @@ const post_fetchAccessToken = async (authCode) => {
 
 const post_confirmTokenBind = async (accessToken, base32EncodedKey) => {
     try {
-        const response = await fetch(`${apiUrl}${Constants.CONFIRM_TOKEN_BIND_PATH}`, {
+        const response = await fetch(`${clientDetails.totpBinderServiceUrl}${clientDetails.confirmTokenBindEndpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
