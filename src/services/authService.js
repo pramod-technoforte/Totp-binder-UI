@@ -1,7 +1,4 @@
 import clientDetails from "../config/clientDetails";
-import Constants from "../constants/constant";
-
-const apiUrl = Constants.API_URL;
 
 const post_fetchAccessToken = async (authCode) => {
     try {
