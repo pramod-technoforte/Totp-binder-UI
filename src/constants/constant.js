@@ -17,6 +17,9 @@ const Constants = {
 
     HOME_PAGE_TITLE: "TOTP Binder Service",
     BIND_PAGE_TITLE: "Key Generator",
+
+    SECRET_KEY_URI_LABEL: "TOTPBinderService",
+    SECRET_KEY_URI_ISSUER: "TOTPBinderService",
 };
 
 export default Constants;

@@ -6,6 +6,7 @@ import '../styles/bind.css';
 import { post_fetchAccessToken, post_confirmTokenBind } from '../services/authService';
 import Constants from '../constants/constant';
 import FormAction from "../components/FormAction";
+import clientDetails from "../config/clientDetails";
 
 const Bind = () => {
     const [accessToken, setAccessToken] = useState(null);
@@ -21,9 +22,6 @@ const Bind = () => {
     const authCode = searchParams.get("code");
 
     const disabled = false;
-
-    const TOTP_DIGITS = process.env.REACT_APP_TOTP_DIGITS ?? "6";
-    const TOTP_PERIOD = process.env.REACT_APP_TOTP_PERIOD ?? "30";
 
     const navigate = useNavigate();
 
@@ -55,9 +53,11 @@ const Bind = () => {
     }, []);
 
     const generateSymmetricKey = () => {
-        const secretKey = generateRandomSecretKey();
+        const secretKey = new Uint8Array(30);
+        window.crypto.getRandomValues(secretKey);
+        
         const base32EncodedKey = encode(secretKey);
-        const otpAuthUrl = `otpauth://totp/TOTPBinderService?secret=${base32EncodedKey}&issuer=TOTPBinderService&digits=${TOTP_DIGITS}&period=${TOTP_PERIOD}`;
+        const otpAuthUrl = `otpauth://totp/${Constants.SECRET_KEY_URI_LABEL}?secret=${base32EncodedKey}&issuer=${Constants.SECRET_KEY_URI_ISSUER}&digits=${clientDetails.digitsInTotp}&period=${clientDetails.periodOfTotp}`;
 
         console.log("Secret Key: " + base32EncodedKey);
         console.log("QR URI: " + otpAuthUrl);
@@ -65,18 +65,6 @@ const Bind = () => {
         setOtpAuthUrl(otpAuthUrl);
         setQRCodeVisible(true);
         setTokenBindConfirmed(false);
-    };
-
-    const generateRandomSecretKey = () => {
-        const validCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let secretKey = '';
-
-        for (let i = 0; i < 30; i++) {
-            const randomIndex = Math.floor(Math.random() * validCharacters.length);
-            secretKey += validCharacters.charAt(randomIndex);
-        }
-
-        return secretKey;
     };
 
     const confirmTokenBind = async () => {
