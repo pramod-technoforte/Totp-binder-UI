@@ -4,7 +4,6 @@ const responseType = "code";
 const uibaseUrl = process.env.REACT_APP_ESIGNET_UI_BASE_URL ?? "https://esignet.onpremdev.idencode.link";
 const authorizeEndpoint = "/authorize";
 const redirect_uri = process.env.REACT_APP_REDIRECT_URI ?? "https://totp-binder-service.onpremdev.idencode.link/qrcode";
-const redirect_uri = process.env.REACT_APP_REDIRECT_URI ?? "http://localhost:3000/qrcode";
 const totpBinderServiceUrl = process.env.REACT_APP_TOTP_BINDER_SERVICE_URL ?? "https://api-internal.onpremdev.idencode.link/v1/totp";
 const authTokenEndpoint = "/oauth/token";
 const confirmTokenBindEndpoint = "/binding/totp-key-bind";
