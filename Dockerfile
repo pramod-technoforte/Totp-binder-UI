@@ -41,7 +41,7 @@ RUN npm install
 COPY . ./
 RUN npm run build
 
-#EXPOSE 443
+EXPOSE 443
 
 FROM nginx
 
