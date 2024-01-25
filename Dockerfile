@@ -13,7 +13,7 @@ ARG scope
 ARG totp_binder_service_url
 ARG totp_digits
 ARG totp_period
-ARG totp_binder_ui_PublicUrl
+#ARG totp_binder_ui_PublicUrl
 
 
 ENV ESIGNET_UI_BASE_URL=$esignet_ui_base_url
@@ -28,7 +28,7 @@ ENV CLAIMS_LOCALES=$claims_locales
 ENV SCOPE=$scope
 ENV TOTP_DIGITS=$totp_digits
 ENV TOTP_PERIOD=$totp_period
-ENV TOTP_BINDER_UI_PUBLIC_URL=$totp_binder_ui_PublicUrl
+#ENV TOTP_BINDER_UI_PUBLIC_URL=$totp_binder_ui_PublicUrl
 
 # Set the environment variable as a placeholder for PUBLIC_URL
 #ENV PUBLIC_URL=_PUBLIC_URL_
@@ -86,11 +86,11 @@ RUN apt-get -y update \
     && mkdir -p /var/run/nginx /var/tmp/nginx ${work_dir}/locales\
     && chown -R ${container_user}:${container_user} /usr/share/nginx /var/run/nginx /var/tmp/nginx ${work_dir}/locales
 
-ADD configure_start.sh configure_start.sh
+#ADD configure_start.sh configure_start.sh
 
-RUN chmod +x configure_start.sh
+#RUN chmod +x configure_start.sh
 
-RUN chown ${container_user}:${container_user} configure_start.sh
+#RUN chown ${container_user}:${container_user} configure_start.sh
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
@@ -108,7 +108,7 @@ USER ${container_user_uid}:${container_user_gid}
 
 EXPOSE 9098
 
-ENTRYPOINT [ "./configure_start.sh" ]
+#ENTRYPOINT [ "./configure_start.sh" ]
 
 # Start Nginx server
 CMD echo "starting nginx" ; \
