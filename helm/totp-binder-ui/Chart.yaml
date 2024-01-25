@@ -1,8 +1,8 @@
 apiVersion: v2
 name: totp-binder-ui
-description: A Helm chart for MOSIP OIDC UI module
+description: A Helm chart for TOTP-BINDER UI module
 type: application
-version: 1.2.0
+version: develop
 appVersion: ""
 dependencies:
   - name: common
