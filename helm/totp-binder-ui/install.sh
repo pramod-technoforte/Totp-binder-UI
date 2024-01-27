@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=totp
-CHART_VERSION=develop
+CHART_VERSION=1.2.0
 
 echo Create $NS namespace
 kubectl create ns $NS

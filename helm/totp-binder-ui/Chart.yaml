@@ -2,7 +2,7 @@ apiVersion: v2
 name: totp-binder-ui
 description: A Helm chart for TOTP-BINDER UI module
 type: application
-version: develop
+version: 1.2.0
 appVersion: ""
 dependencies:
   - name: common
