@@ -103,8 +103,12 @@ spec:
               value: {{ .Values.totp_binder_ui.ACR_VALUES }}
             - name: DISPLAY
               value: {{ .Values.totp_binder_ui.DISPLAY}}
+            - name: SCOPE
+              value: {{.Values.totp_binder_ui.SCOPE}}
             - name: PROMPT
               value: {{.Values.totp_binder_ui.PROMPT}}
+            - name: MAX_AGE
+              value: {{.Values.totp_binder_ui.MAX_AGE}}
             - name: CLAIMS_LOCALES
               value: {{.Values.totp_binder_ui.CLAIMS_LOCALES}}
             - name: TOTP_DIGITS
