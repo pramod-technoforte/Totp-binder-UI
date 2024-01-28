@@ -17,7 +17,7 @@ function installing_totp-binder-ui() {
   kubectl label ns $NS istio-injection=enabled --overwrite
 
   helm repo update
-  helm dependency update
+#  helm dependency update
 
   echo Copy configmaps
   ./copy_cm.sh
