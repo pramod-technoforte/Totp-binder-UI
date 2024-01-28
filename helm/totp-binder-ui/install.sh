@@ -27,7 +27,7 @@ function installing_totp-binder-ui() {
   ESIGNET_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
 
   echo Installing TOTP-BINDER UI
-  helm -n $NS install totp-binder-ui $HOME/totp-binder-ui/helm/totp-binder-ui/totp-binder-ui \
+  helm -n $NS install totp-binder-ui $HOME/totp-binder-ui/helm/totp-binder-ui \
   --set totp_binder_ui.totp_binder_service_url="https://$TOTP_BINDER_SERVICE_HOST/v1/totp" \
   --set totp_binder_ui.ESIGNET_UI_BASE_URL="https://$ESIGNET_HOST" \
   --set totp_binder_ui.REDIRECT_URI="https://$TOTP_BINDER_UI_HOST/qrcode" \
