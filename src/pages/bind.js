@@ -58,7 +58,7 @@ const Bind = () => {
     window.crypto.getRandomValues(secretKey);
 
     const base32EncodedKey = encode(secretKey);
-    const otpAuthUrl = `otpauth://totp/${Constants.SECRET_KEY_URI_LABEL}?secret=${base32EncodedKey}&issuer=${Constants.SECRET_KEY_URI_ISSUER}&digits=${clientDetails.digitsInTotp}&period=${clientDetails.periodOfTotp}`;
+    const otpAuthUrl = `otpauth://totp/${Constants.SECRET_KEY_URI_LABEL}?secret=${base32EncodedKey}&issuer=${Constants.SECRET_KEY_URI_ISSUER}&digits=${clientDetails.digitsInTotp}&period=${clientDetails.periodOfTotp}&algorithm=${clientDetails.algorithmOfTotp}`;
 
     console.log("Secret Key: " + base32EncodedKey);
     console.log("QR URI: " + otpAuthUrl);

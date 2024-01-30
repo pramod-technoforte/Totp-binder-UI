@@ -17,6 +17,7 @@ const claimsLocales = window._env_.CLAIMS_LOCALES ?? "en";
 const userProfileClaims = window._env_.USER_PROFILE_CLAIMS ?? "%7B%22userinfo%22:%7B%22given_name%22:%7B%22essential%22:true%7D,%22phone_number%22:%7B%22essential%22:false%7D,%22email%22:%7B%22essential%22:true%7D,%22picture%22:%7B%22essential%22:false%7D,%22gender%22:%7B%22essential%22:false%7D,%22birthdate%22:%7B%22essential%22:false%7D,%22address%22:%7B%22essential%22:false%7D%7D,%22id_token%22:%7B%7D%7D";
 const digitsInTotp = window._env_.TOTP_DIGITS ?? "6";
 const periodOfTotp = window._env_.TOTP_PERIOD ?? "30";
+const algorithmOfTotp = window._env_.TOTP_ALGORITHM ?? "SHA1";
 
 const claims = {
     userinfo: {
@@ -64,7 +65,8 @@ const clientDetails = {
     claims_locales : claimsLocales,
     userProfileClaims: userProfileClaims ?? encodeURI(JSON.stringify(claims)),
     digitsInTotp: digitsInTotp,
-    periodOfTotp: periodOfTotp
+    periodOfTotp: periodOfTotp,
+    algorithmOfTotp: algorithmOfTotp
 }
 
 export default clientDetails;
