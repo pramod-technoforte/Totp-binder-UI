@@ -137,7 +137,7 @@ additionalResources:
 
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
 ## Clamav container already runs as 'mosip' user, so we may not need to enable this
-container_user: 'mosip'
+container_user: "mosip"
 containerSecurityContext:
   enabled: true
   runAsUser: 0
@@ -402,7 +402,7 @@ metrics:
   prometheusRule:
     enabled: false
     additionalLabels: {}
-    namespace: ''
+    namespace: ""
     ## List of rules, used as template by Helm.
     ## These are just examples rules inspired from https://awesome-prometheus-alerts.grep.to/rules.html
     # rules:
@@ -417,8 +417,8 @@ metrics:
 ## CAUTION: Domain name to access oidc UI must be secure/internal/over vpn.
 ## Slash is important!
 totp_binder_ui:
-  totp_binder_ui_port: '9098'
-  totp_binder_service_url: 'https://api-internal.onpremdev.idencode.link/v1/totp'
+  totp_binder_ui_port: "9098"
+  TOTP_BINDER_SERVICE_URL: "https://api-internal.onpremdev.idencode.link/v1/totp"
   ESIGNET_UI_BASE_URL: https://esignet.onpremdev.idencode.link
   REDIRECT_URI: https://healthservices.sandbox.xyz.net/userprofile
   CLIENT_ID: 8ev-FWq7jvTk5SiZuEntodtN1WPa_SZxNNgK3OdqcG0
@@ -427,9 +427,9 @@ totp_binder_ui:
   PROMPT: consent
   CLAIMS_LOCALES: en
   SCOPE: openid profile
-  MAX_AGE: ''
-  TOTP_DIGITS: ''
-  TOTP_PERIOD: ''
+  MAX_AGE: ""
+  TOTP_DIGITS: ""
+  TOTP_PERIOD: ""
 ## OIDC UI swagger should have only internal access. Hence linked to internal gateway
 ## We create a gateway for esignet specific URL(s) listed under `hosts`
 istio:

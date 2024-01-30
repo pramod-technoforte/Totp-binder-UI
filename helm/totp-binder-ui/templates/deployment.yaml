@@ -115,8 +115,8 @@ spec:
               value: {{.Values.totp_binder_ui.TOTP_DIGITS}}
             - name: TOTP_PERIOD
               value: {{.Values.totp_binder_ui.TOTP_PERIOD}}
-            - name: totp_binder_service_url
-              value: {{.Values.totp_binder_ui.totp_binder_service_url}}             
+            - name: TOTP_BINDER_SERVICE_URL
+              value: {{.Values.totp_binder_ui.TOTP_BINDER_SERVICE_URL}}             
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
