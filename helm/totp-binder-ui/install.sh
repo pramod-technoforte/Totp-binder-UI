@@ -16,18 +16,22 @@ function installing_totp-binder-ui() {
   echo Istio label
   kubectl label ns $NS istio-injection=enabled --overwrite
 
-#  helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
+#  helm dependency update
 
   echo Copy configmaps
   ./copy_cm.sh
 
-  TOTP_BINDER_SERVICE_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
+  TOTP_BINDER_UI_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-totp-binder-service-host})
+  TOTP_BINDER_SERVICE_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
+  ESIGNET_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
 
-  echo Installing OIDC UI
-  helm -n $NS install totp-binder-ui tf-govstack/totp-binder-ui \
-  --set oidc_ui.configmaps.totp-binder-ui.OIDC_UI_PUBLIC_URL=''\
-  --set istio.hosts\[0\]=$ESIGNET_HOST \
+  echo Installing TOTP-BINDER UI
+  helm -n $NS install totp-binder-ui $HOME/totp-binder-ui/helm/totp-binder-ui \
+  --set totp_binder_ui.totp_binder_service_url="https://$TOTP_BINDER_SERVICE_HOST/v1/totp" \
+  --set totp_binder_ui.ESIGNET_UI_BASE_URL="https://$ESIGNET_HOST" \
+  --set totp_binder_ui.REDIRECT_URI="https://$TOTP_BINDER_UI_HOST/qrcode" \
+  --set istio.hosts\[0\]=$TOTP_BINDER_UI_HOST \
   --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status

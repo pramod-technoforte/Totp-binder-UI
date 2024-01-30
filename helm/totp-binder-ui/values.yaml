@@ -248,7 +248,6 @@ extraEnvVarsCM:
   - global
   - config-server-share
   - artifactory-share
-  - softhsm-esignet-share
   - totp-binder-ui
 
 ## Secret with extra environment variables
@@ -375,7 +374,7 @@ metrics:
   serviceMonitor:
     ## If the operator is installed in your cluster, set to true to create a Service Monitor Entry
     ##
-    enabled: true
+    enabled: false
     ## Specify the namespace in which the serviceMonitor resource will be created
     ##
     # namespace: ""
@@ -417,16 +416,20 @@ metrics:
 ## The url below is to access esignet API services.
 ## CAUTION: Domain name to access oidc UI must be secure/internal/over vpn.
 ## Slash is important!
-oidc_ui:
-  oidc_ui_port: '9098'
-  oidc_service_host: 'esignet.esignet'
-  configmaps:
-    totp-binder-ui:
-      REACT_APP_API_BASE_URL: 'http://esignet.esignet/v1/esignet'
-      REACT_APP_SBI_DOMAIN_URI: 'http://esignet.$NS'
-      OIDC_UI_PUBLIC_URL: ''
-      SIGN_IN_WITH_ESIGNET_PLUGIN_URL: 'http://artifactory.artifactory:80/artifactory/libs-release-local/mosip-plugins/sign-in-with-esignet.zip'
-
+totp_binder_ui:
+  totp_binder_ui_port: '9098'
+  totp_binder_service_url: 'https://api-internal.onpremdev.idencode.link/v1/totp'
+  ESIGNET_UI_BASE_URL: https://esignet.onpremdev.idencode.link
+  REDIRECT_URI: https://healthservices.sandbox.xyz.net/userprofile
+  CLIENT_ID: 8ev-FWq7jvTk5SiZuEntodtN1WPa_SZxNNgK3OdqcG0
+  ACR_VALUES: mosip:idp:acr:generated-code
+  DISPLAY: page
+  PROMPT: consent
+  CLAIMS_LOCALES: en
+  SCOPE: openid profile
+  MAX_AGE: ''
+  TOTP_DIGITS: ''
+  TOTP_PERIOD: ''
 ## OIDC UI swagger should have only internal access. Hence linked to internal gateway
 ## We create a gateway for esignet specific URL(s) listed under `hosts`
 istio:
@@ -439,5 +442,5 @@ istio:
       portName: http
       port: 80
   hosts:
-    - esignet.sandbox.xyz.net
+    - totp-binder-service.sandbox.xyz.net
   prefix: /
