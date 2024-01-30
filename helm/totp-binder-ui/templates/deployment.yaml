@@ -8,8 +8,8 @@ metadata:
   name: {{ template "common.names.fullname" . }}
   annotations:
     {{- if .Values.commonAnnotations }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
-    {{- end }}
+      {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+      {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   {{- if .Values.updateStrategy }}
@@ -21,8 +21,8 @@ spec:
     metadata:
       annotations:
         {{- if or .Values.podAnnotations .Values.metrics.enabled }}
-        {{- include "totp-binder-ui.podAnnotations" . | nindent 8 }}
-        {{- end }}
+          {{- include "totp-binder-ui.podAnnotations" . | nindent 8 }}
+          {{- end }}
       labels: {{- include "common.labels.standard" . | nindent 8 }}
         {{- if .Values.podLabels }}
         {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
@@ -70,7 +70,7 @@ spec:
               mountPath: bar
         {{- end }}
         {{- if .Values.initContainers }}
-          {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
         {{- end }}
       containers:
         - name: totp-binder-ui
@@ -93,27 +93,51 @@ spec:
               value: {{ .Values.container_user }}
             - name: JDK_JAVA_OPTIONS
               value: {{ .Values.additionalResources.javaOpts }}
+            - name: ESIGNET_UI_BASE_URL
+              value: {{ .Values.totp_binder_ui.ESIGNET_UI_BASE_URL }}
+            - name: REDIRECT_URI
+              value: {{ .Values.totp_binder_ui.REDIRECT_URI }}
+            - name: CLIENT_ID
+              value: {{ .Values.totp_binder_ui.CLIENT_ID }}
+            - name: ACR_VALUES
+              value: {{ .Values.totp_binder_ui.ACR_VALUES }}
+            - name: DISPLAY
+              value: {{ .Values.totp_binder_ui.DISPLAY}}
+            - name: SCOPE
+              value: {{.Values.totp_binder_ui.SCOPE}}
+            - name: PROMPT
+              value: {{.Values.totp_binder_ui.PROMPT}}
+            - name: MAX_AGE
+              value: {{.Values.totp_binder_ui.MAX_AGE}}
+            - name: CLAIMS_LOCALES
+              value: {{.Values.totp_binder_ui.CLAIMS_LOCALES}}
+            - name: TOTP_DIGITS
+              value: {{.Values.totp_binder_ui.TOTP_DIGITS}}
+            - name: TOTP_PERIOD
+              value: {{.Values.totp_binder_ui.TOTP_PERIOD}}
+            - name: TOTP_BINDER_SERVICE_URL
+              value: {{.Values.totp_binder_ui.TOTP_BINDER_SERVICE_URL}}             
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
           envFrom:
             {{- if .Values.extraEnvVarsCM }}
-            {{- range .Values.extraEnvVarsCM }}
-            - configMapRef:
-                name: {{ . }}
-            {{- end }}
-            {{- end }}
-            {{- if .Values.extraEnvVarsSecret }}
-            - secretRef:
-                name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
-            {{- end }}
+              {{- range .Values.extraEnvVarsCM }}
+              - configMapRef:
+                  name: {{ . }}
+              {{- end }}
+              {{- end }}
+              {{- if .Values.extraEnvVarsSecret }}
+              - secretRef:
+                  name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
+              {{- end }}
           volumeMounts:
-            - name: nginx-config
+            - name: nginx-conf
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
           ports:
             - name: spring-service
-              containerPort: {{ .Values.oidc_ui.oidc_ui_port }}
+              containerPort: {{ .Values.totp_binder_ui.totp_binder_ui_port }}
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
@@ -136,9 +160,9 @@ spec:
         {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
       volumes:
-        - name: nginx-config
+        - name: nginx-conf
           configMap:
-            name: {{ template "common.names.fullname" . }}-nginx-cm
+            name: {{ template "common.names.fullname" . }}
             items:
               - key: nginx.conf
                 path: nginx.conf
