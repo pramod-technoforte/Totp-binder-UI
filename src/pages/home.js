@@ -46,26 +46,27 @@ function Home() {
 
   return (
     <>
-      <section className="text-gray-600 mt-4 body-font">
-        <div className="container flex mx-auto px-5 md:flex-row flex-col">
+      <section className="text-gray-600 mt-4 body-font ">
+        <div className="container flex mx-auto px-5 md:flex-row flex-col ">
           <div className="flex justify-center mt-20 mb:mt-0 lg:w-1/2 md:w-1/2 w-5/6 mb-10 md:mb-0">
             <div>
               <img
-                className="object-contain "
+                className="object-contain fixed"
                 src="images/background_img.png"
+                style={{ zIndex: -1, left: 200, bottom: 30 }}
               />
             </div>
           </div>
           <div className="lg:flex-grow lg:px-24 md:px-16 flex flex-col">
-            <div className="grid grid-rows-5 mt-20 w-full flex shadow-lg rounded bg-[#FFFFFF]">
-              <div className="w-full mt-10">
-                <h1 className="flex justify-center title-font sm:text-3xl text-3xl mb-3 font-medium #707070">
+            <div className="grid grid-rows-5 mt-20 w-full flex shadow-lg rounded bg-[#FFFFFF] relative">
+              <div className="w-full mt-10 ">
+                <h1 className="flex justify-center title-font sm:text-2xl text-2xl mb-3 font-medium #707070">
                   TOTP Binder Service
                 </h1>
               </div>
               <div className="flex justify-center w-full">
                 <div className="row-span-5 w-96 self-start">
-                  <div className="px-5 py-2">
+                  <div className="px-11 py-2">
                     <div id="sign-in-with-esignet"></div>
                   </div>
                 </div>

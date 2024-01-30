@@ -27,31 +27,31 @@ const Bind = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem(Constants.ACCESS_TOKEN);
+  // useEffect(() => {
+  //   const storedToken = localStorage.getItem(Constants.ACCESS_TOKEN);
 
-    if (storedToken) {
-      setAccessToken(storedToken);
-      console.log("Access Token (Local Storage) : " + storedToken);
-      console.log("Time : " + new Date().toLocaleTimeString());
-    } else {
-      setLoading(true);
-      post_fetchAccessToken(authCode)
-        .then((token) => {
-          setAccessToken(token);
-          console.log("Access Token (API) : " + token);
-          console.log("Time : " + new Date().toLocaleTimeString());
-          localStorage.setItem(Constants.ACCESS_TOKEN, token);
-        })
-        .catch((error) => {
-          console.error("Error fetching user details:", error);
-          setError("Error fetching access token.");
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  }, []);
+  //   if (storedToken) {
+  //     setAccessToken(storedToken);
+  //     console.log("Access Token (Local Storage) : " + storedToken);
+  //     console.log("Time : " + new Date().toLocaleTimeString());
+  //   } else {
+  //     setLoading(true);
+  //     post_fetchAccessToken(authCode)
+  //       .then((token) => {
+  //         setAccessToken(token);
+  //         console.log("Access Token (API) : " + token);
+  //         console.log("Time : " + new Date().toLocaleTimeString());
+  //         localStorage.setItem(Constants.ACCESS_TOKEN, token);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching user details:", error);
+  //         setError("Error fetching access token.");
+  //       })
+  //       .finally(() => {
+  //         setLoading(false);
+  //       });
+  //   }
+  // }, []);
 
   const generateSymmetricKey = () => {
     const secretKey = new Uint8Array(30);
@@ -77,11 +77,12 @@ const Bind = () => {
       );
 
       if (response === Constants.SUCCESS_MSG) {
-        setSuccessMessage(Constants.BIND_SUCCESS_MSG);
         setTokenBindConfirmed(true);
+        setSuccessMessage(Constants.BIND_SUCCESS_MSG);
       } else {
         setSuccessMessage(Constants.BIND_FAIL_MSG);
       }
+      setQRCodeVisible(false);
     } catch (error) {
       console.error("Error confirming token bind:", error);
     } finally {
@@ -101,26 +102,33 @@ const Bind = () => {
       {!loading && !error && (
         <section className="text-gray-600 mt-4 body-font">
           <div className="container flex mx-auto px-5 md:flex-row flex-col">
-            <div className="flex justify-center mt-20 mb:mt-0 lg:w-1/2 md:w-1/2 w-5/6 mb-10 md:mb-0">
+            <div className="flex justify-center mt-20 mb:mt-0 lg:w-1/2 md:w-1/2 w-5/6 mb-10 md:mb-0 ">
               <div>
                 <img
-                  className="object-contain "
+                  className="object-contain fixed"
                   src="images/background_img.png"
+                  style={{ zIndex: -1, left: 200, bottom: 30}}
                 />
               </div>
             </div>
             <div className="lg:flex-grow lg:px-24 md:px-16 flex flex-col">
-              <div className="grid mt-20 w-full flex shadow-lg rounded bg-[#FFFFFF]">
+              <div className="grid mt-20 w-full flex shadow-lg rounded bg-[#FFFFFF] relative">
                 <div className="flex justify-center w-full mt-5">
                   <div className="row-span-5 w-96 self-start">
-                    <div className="px-5 py-2">
-                      <FormAction
-                        id="General"
-                        disabled={tokenBindConfirmed}
-                        type={Constants.BUTTON}
-                        text={Constants.GENERATE_KEY_BTN}
-                        handleClick={generateSymmetricKey}
-                      />
+                    <div className="px-11 py-2">
+                      {successMessage ? (
+                        <div className={`mt-5 text-center ${successMessage.includes(Constants.BIND_SUCCESS_MSG) ? 'bg-green-200 text-green-800 border border-green-400 p-2 rounded' : 'bg-red-200 text-red-800 border border-red-400 p-2 rounded'}`}>
+                          {successMessage}
+                        </div>
+                      ) : (
+                        <FormAction
+                          id="General"
+                          disabled={tokenBindConfirmed}
+                          type={Constants.BUTTON}
+                          text={Constants.GENERATE_KEY_BTN}
+                          handleClick={generateSymmetricKey}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -135,14 +143,16 @@ const Bind = () => {
                     </div>
                     <div className="flex justify-center w-full">
                       <div className="row-span-5 w-96 self-start">
-                        <div className="px-5 py-2">
-                          <FormAction
-                            id="General"
-                            disabled={tokenBindConfirmed}
-                            type={Constants.BUTTON}
-                            text={Constants.CONFIRM_BIND_BTN}
-                            handleClick={confirmTokenBind}
-                          />
+                        <div className="px-11 py-2">
+                          {tokenBindConfirmed ? null : (
+                            <FormAction
+                              id="Register"
+                              disabled={tokenBindConfirmed}
+                              type={Constants.BUTTON}
+                              text={Constants.CONFIRM_BIND_BTN}
+                              handleClick={confirmTokenBind}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -150,7 +160,7 @@ const Bind = () => {
                 )}
                 <div className="flex justify-center w-full mb-5">
                   <div className="row-span-5 w-96 self-start">
-                    <div className="px-5 py-2">
+                    <div className="px-11 py-2">
                       <FormAction
                         id="Logout"
                         disabled={disabled}

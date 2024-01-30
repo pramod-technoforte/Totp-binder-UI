@@ -13,7 +13,7 @@ const Constants = {
 
     GENERATE_KEY_BTN: "Generate Key",
     CONFIRM_BIND_BTN: "Register TOTP",
-    LOGOUT_BTN: "Logout",
+    LOGOUT_BTN: "Signout",
 
     HOME_PAGE_TITLE: "TOTP Binder Service",
     BIND_PAGE_TITLE: "Key Generator",

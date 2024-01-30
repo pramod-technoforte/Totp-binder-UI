@@ -17,7 +17,24 @@ export default function FormAction({
             className +
             (disabled
               ? "text-slate-400 bg-white"
-              : "text-white bg-gradient-to-t from-cyan-500 to-blue-500 hover:bg-gradient-to-b")
+              : "text-white bg-gradient-to-t from-blue-500 to-blue-600 hover:bg-gradient-to-b")
+          }
+          onClick={handleClick}
+          disabled={disabled}
+          id={id}
+        >
+          {text}
+        </button>
+      )}
+      {id === "Register" && (
+        <button
+          type={type}
+          value={type}
+          className={
+            className +
+            (disabled
+              ? "text-slate-400 bg-white"
+              : "text-white bg-gradient-to-t from-green-500 to-green-600 hover:bg-gradient-to-b")
           }
           onClick={handleClick}
           disabled={disabled}
@@ -31,10 +48,7 @@ export default function FormAction({
           type={type}
           value={type}
           className={
-            className +
-            (disabled
-              ? "text-slate-400 bg-white"
-              : "text-white bg-gradient-to-t from-red-400 to-red-600 hover:bg-gradient-to-b")
+            className + "border-red-400 text-red-400 bg-white hover:border-red-600 hover:text-white hover:bg-red-600"
           }
           onClick={handleClick}
           disabled={disabled}
