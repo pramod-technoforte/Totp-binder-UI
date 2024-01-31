@@ -11,12 +11,15 @@ const Constants = {
     CANCEL: "Cancel",
     RESET: "Reset",
 
-    GENERATE_KEY_BTN: "Generate Key",
-    CONFIRM_BIND_BTN: "Register TOTP",
+    GENERATE_KEY_BTN: "Generate QR Code",
+    REGENERATE_KEY_BTN: "Regenerate QR Code",
+    CONFIRM_BIND_BTN: "Confirm Binding",
     LOGOUT_BTN: "Signout",
 
-    HOME_PAGE_TITLE: "TOTP Binder Service",
-    BIND_PAGE_TITLE: "Key Generator",
+    QR_CODE_LABEL: "Scan with Google/Microsoft Authenticators",
+
+    PAGE_TITLE: "Time Based OTP User Identity Binding",
+    LOGIN_TITLE: "Login",
 
     SECRET_KEY_URI_LABEL: "TOTPBinderService",
     SECRET_KEY_URI_ISSUER: "TOTPBinderService",

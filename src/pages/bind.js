@@ -97,6 +97,14 @@ const Bind = () => {
 
   return (
     <>
+      <nav className="bg-white border-gray-500 shadow px-2 sm:px-4 py-5" id="navbar-header">
+        <div className="flex grid justify-items-center">
+          <p className="text-sm text-black-500 sm:text-2xl font-medium">
+            {Constants.PAGE_TITLE}
+          </p>
+        </div>
+      </nav>
+      
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
@@ -105,14 +113,13 @@ const Bind = () => {
             <div className="flex justify-center mt-20 mb:mt-0 lg:w-1/2 md:w-1/2 w-5/6 mb-10 md:mb-0 ">
               <div>
                 <img
-                  className="object-contain fixed"
+                  className="object-contain rtl:scale-x-[-1]"
                   src="images/background_img.png"
-                  style={{ zIndex: -1, left: 200, bottom: 30 }}
                 />
               </div>
             </div>
             <div className="lg:flex-grow lg:px-24 md:px-16 flex flex-col">
-              <div className="grid mt-20 w-full flex shadow-lg rounded bg-[#FFFFFF] relative">
+              <div className="grid w-full flex shadow-lg rounded bg-[#FFFFFF] relative">
                 <div className="flex justify-center w-full mt-5">
                   <div className="row-span-5 w-96 self-start">
                     <div className="px-11 py-2">
@@ -131,7 +138,7 @@ const Bind = () => {
                           id="General"
                           disabled={tokenBindConfirmed}
                           type={Constants.BUTTON}
-                          text={Constants.GENERATE_KEY_BTN}
+                          text={qrCodeVisible ? Constants.REGENERATE_KEY_BTN : Constants.GENERATE_KEY_BTN}
                           handleClick={generateSymmetricKey}
                         />
                       )}
@@ -140,14 +147,19 @@ const Bind = () => {
                 </div>
                 {qrCodeVisible && (
                   <>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-2">
                       <div className="row-span-5 self-start">
-                        <div className="border border-1 border-#00000059 rounded-lg p-4">
+                        <div className="border border-1 border-#00000059 rounded-lg p-2">
                           <QRCode className="h-50" value={otpAuthUrl} />
                         </div>
                       </div>
                     </div>
-                    <div className="flex justify-center w-full">
+                    
+                    <div className="flex justify-center mt-1">
+                      <p className="text-sm text-gray-500">{Constants.QR_CODE_LABEL}</p>
+                    </div>
+                    
+                    <div className="flex justify-center w-full mt-4">
                       <div className="row-span-5 w-96 self-start">
                         <div className="px-11 py-2">
                           {tokenBindConfirmed ? null : (
