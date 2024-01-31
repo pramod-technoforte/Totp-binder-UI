@@ -22,7 +22,6 @@ const post_fetchAccessToken = async (authCode) => {
         return token;
         
     } catch (error) {
-        console.error("Error fetching access token:", error);
         throw error;
     }
 };
@@ -51,7 +50,6 @@ const post_confirmTokenBind = async (accessToken, base32EncodedKey) => {
         return data.status;
 
     } catch (error) {
-        console.error("Error confirming token bind:", error);
         throw error;
     }
 };

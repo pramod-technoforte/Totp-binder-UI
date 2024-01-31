@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import SignInWithEsignetButton from "../login-plugin";
 import ClientDetails from "../config/ClientDetails";
 import Constants from "../constants/Constant";
+import Header from "../components/Header";
+import ImageDisplay from "../components/ImageDisplay";
 
 function Home() {
 	useEffect(() => {
@@ -40,30 +42,16 @@ function Home() {
 			buttonConfig,
 			signInElement: signInContainer,
 		});
-
-		console.log(oidcConfig);
 	}, []);
 
 	return (
     <>
-		<nav className="bg-white border-gray-500 shadow px-2 sm:px-4 py-5" id="navbar-header">
-			<div className="flex grid justify-items-center">
-				<p className="text-sm text-black-500 sm:text-2xl font-medium">
-					{Constants.PAGE_TITLE}
-				</p>
-			</div>
-		</nav>
+		<Header	pageTitle={Constants.PAGE_TITLE}/>
 
 		<section className="text-gray-600 mt-4 body-font ">
 			<div className="container flex mx-auto px-5 md:flex-row flex-col ">
-				<div className="flex justify-center mt-20 mb:mt-0 lg:w-1/2 md:w-1/2 w-5/6 mb-10 md:mb-0">
-					<div>
-						<img
-						className="object-contain rtl:scale-x-[-1]"
-						src="images/background_img.png"
-						/>
-					</div>
-				</div>
+				
+				<ImageDisplay imageUrl={"images/background_img.png"}/>
 
 				<div className="lg:flex-grow lg:px-24 md:px-16 flex flex-col">
 					<div className="grid grid-rows-5 w-full flex shadow-lg rounded bg-[#FFFFFF] relative">
