@@ -1,8 +1,8 @@
-import clientDetails from "../config/clientDetails";
+import ClientDetails from "../config/ClientDetails";
 
 const post_fetchAccessToken = async (authCode) => {
     try {
-        const response = await fetch(`${clientDetails.totpBinderServiceUrl}${clientDetails.authTokenEndpoint}`, {
+        const response = await fetch(`${ClientDetails.totpBinderServiceUrl}${ClientDetails.authTokenEndpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ const post_fetchAccessToken = async (authCode) => {
 
 const post_confirmTokenBind = async (accessToken, base32EncodedKey) => {
     try {
-        const response = await fetch(`${clientDetails.totpBinderServiceUrl}${clientDetails.confirmTokenBindEndpoint}`, {
+        const response = await fetch(`${ClientDetails.totpBinderServiceUrl}${ClientDetails.confirmTokenBindEndpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

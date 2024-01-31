@@ -46,7 +46,7 @@ const claims = {
     id_token: {},
 }
 
-const clientDetails = {
+const ClientDetails = {
     state : state,
     nonce : nonce,
     response_type : responseType,
@@ -69,4 +69,4 @@ const clientDetails = {
     algorithmOfTotp: algorithmOfTotp
 }
 
-export default clientDetails;
+export default ClientDetails;
