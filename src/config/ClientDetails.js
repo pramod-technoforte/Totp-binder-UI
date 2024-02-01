@@ -12,6 +12,7 @@ const totpBinderServiceUrl =
   "https://api-internal.onpremdev.idencode.link/v1/totp";
 const authTokenEndpoint = "/oauth/token";
 const confirmTokenBindEndpoint = "/binding/totp-key-bind";
+const generateKeyEndpoint = "/binding/key";
 const clientId =
   window._env_.CLIENT_ID ?? "8ev-FWq7jvTk5SiZuEntodtN1WPa_SZxNNgK3OdqcG0";
 const scope = window._env_.SCOPE ?? "openid profile";
@@ -64,6 +65,7 @@ const ClientDetails = {
   totpBinderServiceUrl: totpBinderServiceUrl,
   authTokenEndpoint: authTokenEndpoint,
   confirmTokenBindEndpoint: confirmTokenBindEndpoint,
+  generateKeyEndpoint: generateKeyEndpoint,
   clientId: clientId,
   scope: scope,
   acr_values: acr_values,
