@@ -4,6 +4,7 @@ import { encode } from "hi-base32";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import {
   post_fetchAccessToken,
+  get_generateSymmetricKey,
   post_confirmTokenBind,
 } from "../services/APIService";
 import Constants from "../constants/Constant";
@@ -50,17 +51,20 @@ const Bind = () => {
     }
   }, []);
 
-  const generateSymmetricKey = () => {
-    const secretKey = new Uint8Array(30);
-    window.crypto.getRandomValues(secretKey);
+  const generateSymmetricKey = async () => {
+    try {
+      const response = await get_generateSymmetricKey();
 
-    const base32EncodedKey = encode(secretKey);
-    const otpAuthUrl = `otpauth://totp/${Constants.SECRET_KEY_URI_LABEL}?secret=${base32EncodedKey}&issuer=${Constants.SECRET_KEY_URI_ISSUER}&digits=${ClientDetails.digitsInTotp}&period=${ClientDetails.periodOfTotp}&algorithm=${ClientDetails.algorithmOfTotp}`;
+      const key = response.key;
+      const otpAuthUrl = `otpauth://totp/${Constants.SECRET_KEY_URI_LABEL}?secret=${key}&issuer=${Constants.SECRET_KEY_URI_ISSUER}&digits=${ClientDetails.digitsInTotp}&period=${ClientDetails.periodOfTotp}&algorithm=${ClientDetails.algorithmOfTotp}`;
 
-    setBase32EncodedKey(base32EncodedKey);
-    setOtpAuthUrl(otpAuthUrl);
-    setQRCodeVisible(true);
-    setTokenBindConfirmed(false);
+      setBase32EncodedKey(response);
+      setOtpAuthUrl(otpAuthUrl);
+      setQRCodeVisible(true);
+      setTokenBindConfirmed(false);
+    } catch (error) {
+      console.error("Error confirming token bind:", error);
+    }
   };
 
   const confirmTokenBind = async () => {
