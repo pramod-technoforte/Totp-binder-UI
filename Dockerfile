@@ -13,6 +13,7 @@ ARG scope
 ARG totp_binder_service_url
 ARG totp_digits
 ARG totp_period
+ARG totp_algorithm
 ARG totp_binder_ui_PublicUrl
 
 
@@ -28,6 +29,7 @@ ENV CLAIMS_LOCALES=$claims_locales
 ENV SCOPE=$scope
 ENV TOTP_DIGITS=$totp_digits
 ENV TOTP_PERIOD=$totp_period
+ENV TOTP_ALGORITHM=$totp_algorithm
 ENV TOTP_BINDER_UI_PUBLIC_URL=$totp_binder_ui_PublicUrl
 
 # Set the environment variable as a placeholder for PUBLIC_URL

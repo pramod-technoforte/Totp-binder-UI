@@ -115,6 +115,8 @@ spec:
               value: {{.Values.totp_binder_ui.TOTP_DIGITS}}
             - name: TOTP_PERIOD
               value: {{.Values.totp_binder_ui.TOTP_PERIOD}}
+            - name: TOTP_ALGORITHM
+              value: {{.Values.totp_binder_ui.TOTP_ALGORITHM}}
             - name: TOTP_BINDER_SERVICE_URL
               value: {{.Values.totp_binder_ui.TOTP_BINDER_SERVICE_URL}}             
             {{- if .Values.extraEnvVars }}
