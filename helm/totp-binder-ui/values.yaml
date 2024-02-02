@@ -430,7 +430,7 @@ totp_binder_ui:
   MAX_AGE: "21"
   TOTP_DIGITS: "6"
   TOTP_PERIOD: "30"
-  TOTP_ALGORITHM: "SHA1"
+  TOTP_ALGORITHM: SHA1
 ## OIDC UI swagger should have only internal access. Hence linked to internal gateway
 ## We create a gateway for esignet specific URL(s) listed under `hosts`
 istio:

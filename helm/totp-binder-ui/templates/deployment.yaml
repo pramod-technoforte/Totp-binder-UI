@@ -108,13 +108,13 @@ spec:
             - name: PROMPT
               value: {{.Values.totp_binder_ui.PROMPT}}
             - name: MAX_AGE
-              value: {{.Values.totp_binder_ui.MAX_AGE}}
+              value: "21"
             - name: CLAIMS_LOCALES
               value: {{.Values.totp_binder_ui.CLAIMS_LOCALES}}
             - name: TOTP_DIGITS
-              value: {{.Values.totp_binder_ui.TOTP_DIGITS}}
+              value: "6"
             - name: TOTP_PERIOD
-              value: {{.Values.totp_binder_ui.TOTP_PERIOD}}
+              value: "30"
             - name: TOTP_ALGORITHM
               value: {{.Values.totp_binder_ui.TOTP_ALGORITHM}}
             - name: TOTP_BINDER_SERVICE_URL
