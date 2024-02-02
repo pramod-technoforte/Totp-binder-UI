@@ -2,8 +2,8 @@ const Constants = {
   ACCESS_TOKEN: "accessToken",
 
   SUCCESS_MSG: "success",
-  BIND_SUCCESS_MSG: "Registration Successful",
-  BIND_FAIL_MSG: "Registration Failed",
+  BIND_SUCCESS_MSG: "Binding Successful",
+  BIND_FAIL_MSG: "Binding Failed",
 
   BUTTON: "Button",
   SUBMIT: "Submit",
