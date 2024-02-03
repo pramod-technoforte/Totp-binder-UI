@@ -100,7 +100,7 @@ COPY ./default.conf /etc/nginx/conf.d/
 
 COPY --from=build /app/build ${work_dir}
 
-RUN echo "ESIGNET_UI_BASE_URL=$ESIGNET_UI_BASE_URL" >> ${work_dir}/env.env && echo "REDIRECT_URI=$REDIRECT_URI" >> ${work_dir}/env.env && echo "CLIENT_ID=$CLIENT_ID" >> ${work_dir}/env.env && echo "ACR_VALUES=$ACR_VALUES" >> ${work_dir}/env.env && echo "DISPLAY=$DISPLAY" >> ${work_dir}/env.env && echo "MAX_AGE=$MAX_AGE" >> ${work_dir}/env.env && echo "PROMPT=$PROMPT" >> ${work_dir}/env.env && echo "CLAIMS_LOCALES=$CLAIMS_LOCALES" >> ${work_dir}/env.env && echo "TOTP_DIGITS=$TOTP_DIGITS" >> ${work_dir}/env.env && echo "TOTP_PERIOD=$TOTP_PERIOD" >> ${work_dir}/env.env && echo "SCOPE=$SCOPE" >> ${work_dir}/env.env && echo "TOTP_BINDER_SERVICE_URL=TOTP_BINDER_SERVICE_URL" >> ${work_dir}/env.env
+RUN echo "ESIGNET_UI_BASE_URL=$ESIGNET_UI_BASE_URL" >> ${work_dir}/env.env && echo "REDIRECT_URI=$REDIRECT_URI" >> ${work_dir}/env.env && echo "CLIENT_ID=$CLIENT_ID" >> ${work_dir}/env.env && echo "ACR_VALUES=$ACR_VALUES" >> ${work_dir}/env.env && echo "DISPLAY=$DISPLAY" >> ${work_dir}/env.env && echo "MAX_AGE=$MAX_AGE" >> ${work_dir}/env.env && echo "PROMPT=$PROMPT" >> ${work_dir}/env.env && echo "CLAIMS_LOCALES=$CLAIMS_LOCALES" >> ${work_dir}/env.env && echo "TOTP_DIGITS=$TOTP_DIGITS" >> ${work_dir}/env.env && echo "TOTP_PERIOD=$TOTP_PERIOD" >> ${work_dir}/env.env && echo "TOTP_ALGORITHM=$TOTP_ALGORITHM" >> ${work_dir}/env.env && echo "SCOPE=$SCOPE" >> ${work_dir}/env.env && echo "TOTP_BINDER_SERVICE_URL=TOTP_BINDER_SERVICE_URL" >> ${work_dir}/env.env
 
 # change permissions of file inside working dir
 RUN chown -R ${container_user}:${container_user} ${work_dir}

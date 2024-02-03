@@ -13,4 +13,5 @@ window._env_ = {
   CLAIMS_LOCALES: "en",
   TOTP_DIGITS: 6,
   TOTP_PERIOD: 30,
+  TOTP_ALGORITHM: "SHA1",
 };
