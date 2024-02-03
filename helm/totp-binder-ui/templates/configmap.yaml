@@ -32,7 +32,7 @@ data:
         gzip_proxied expired no-cache no-store private auth;
         gzip_types text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
         location /totp-binder-service/ {
-          proxy_pass         {{ .Values.totp_binder_ui.totp_binder_service_url }};
+          proxy_pass         http://totp-binder-service.totp/;
           proxy_redirect     off;
           proxy_set_header   Host $host;
           proxy_set_header   X-Real-IP $remote_addr;
